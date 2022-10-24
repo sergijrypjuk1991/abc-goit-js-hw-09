@@ -41,14 +41,17 @@ function onClick() {
     if (intervalTime <= 0) {
       return;
     }
-    const { days, hours, minutes, seconds } = convertMs(intervalTime);
-
-    refs.days.textContent = days;
-    refs.hours.textContent = hours;
-    refs.minutes.textContent = minutes;
-    refs.seconds.textContent = seconds;
+const dataConverts = convertMs(intervalTime);
+    addNull(refs, dataConverts);
   }, 1000);
 }
+
+function addNull(unit, data) {
+  Object.keys(unit).map(key => {
+    unit[key].textContent = addLeadingZero(data[key]);
+  });
+}
+
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
